@@ -3,321 +3,365 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Juan Pablo Toro — Desarrollo, Infraestructura y Seguridad</title>
-<meta name="description" content="Portafolio de Juan Pablo Toro Correa: desarrollador full stack con experiencia en infraestructura, redes y seguridad. APIs REST, automatización y los sistemas donde corren.">
+<title>Juan Pablo Toro — Developer</title>
+<meta name="description" content="Juan Pablo Toro Correa — desarrollador full stack. Construyo software y entiendo la infraestructura donde corre. Un recorrido por mi trabajo.">
 <link rel="icon" href="./assets/perfil-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#070707;
-    --bg-soft:#0e0e0e;
-    --line:rgba(255,255,255,.08);
-    --line-strong:rgba(255,255,255,.16);
-    --ink:#eceae4;
-    --muted:#8f8d86;
-    --faint:#5c5a54;
-    --bone:#cfc6b4;
-    --bone-dim:#9a9280;
-    --mono:"JetBrains Mono",monospace;
-    --disp:"Space Grotesk",sans-serif;
-    --body:"Inter",system-ui,sans-serif;
+    --bg:#060606; --bg2:#0b0b0a; --ink:#ece9e1; --muted:#8c897f; --faint:#56534c;
+    --bone:#d8cdb6; --bone2:#b3a888; --line:rgba(236,233,225,.09);
+    --disp:"Space Grotesk",sans-serif; --serif:"Fraunces",serif; --mono:"JetBrains Mono",monospace;
+    --body:"Space Grotesk",system-ui,sans-serif;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    background:var(--bg);color:var(--ink);font-family:var(--body);
-    font-size:16px;line-height:1.65;font-weight:300;-webkit-font-smoothing:antialiased;
-    background-image:radial-gradient(1200px 600px at 80% -10%, #141412 0%, transparent 60%);
-  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300}
+  body{overflow-x:hidden}
   a{color:inherit;text-decoration:none}
   ::selection{background:var(--bone);color:#000}
-  .wrap{max-width:980px;margin:0 auto;padding:0 28px}
+  img{display:block;max-width:100%}
 
-  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--bone-dim);display:flex;align-items:center;gap:14px;margin-bottom:34px}
-  .kicker::after{content:"";flex:1;height:1px;background:var(--line)}
+  /* grain / textura blackwork */
+  .grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.05;mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(130% 90% at 50% 0%,transparent 55%,rgba(0,0,0,.55) 100%)}
 
-  header.nav{position:sticky;top:0;z-index:50;background:rgba(7,7,7,.72);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
-  .brand{font-family:var(--disp);font-weight:600;letter-spacing:.14em;font-size:13px}
-  .brand span{color:var(--bone)}
-  nav ul{display:flex;gap:30px;list-style:none}
-  nav a{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--muted);transition:color .2s}
-  nav a:hover{color:var(--ink)}
-  @media(max-width:720px){nav ul{display:none}}
+  /* progreso + contador fijos */
+  .hud{position:fixed;z-index:30;left:0;right:0;top:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,46px);mix-blend-mode:difference}
+  .hud .sig{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:#fff}
+  .hud .sig b{color:var(--bone)}
+  .hud nav{display:flex;gap:22px}
+  .hud nav a{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:#fff;opacity:.6;transition:opacity .3s}
+  .hud nav a:hover{opacity:1}
+  @media(max-width:700px){.hud nav{display:none}}
+  .prog{position:fixed;left:0;top:0;height:2px;background:linear-gradient(90deg,var(--bone),var(--bone2));width:0;z-index:31}
+  .counter{position:fixed;z-index:30;right:clamp(18px,4vw,46px);bottom:26px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--muted);mix-blend-mode:difference}
+  .counter b{color:var(--bone);font-size:13px}
 
-  .hero{padding:110px 0 90px;border-bottom:1px solid var(--line)}
-  .status{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--bone-dim);display:inline-flex;align-items:center;gap:9px;margin-bottom:30px}
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--bone);animation:p 2.6s infinite}
-  @keyframes p{0%{box-shadow:0 0 0 0 rgba(207,198,180,.45)}70%{box-shadow:0 0 0 7px rgba(207,198,180,0)}100%{box-shadow:0 0 0 0 rgba(207,198,180,0)}}
-  .hero h1{font-family:var(--disp);font-weight:600;letter-spacing:-.01em;font-size:clamp(34px,6vw,62px);line-height:1.04;margin-bottom:8px}
-  .hero h1 .b{color:var(--bone)}
-  .hero .role{font-family:var(--mono);font-size:13px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:28px}
-  .hero p.lead{max-width:600px;color:#c9c7c1;font-size:17px}
-  .hero p.lead strong{color:var(--ink);font-weight:500}
-  .cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
-  .btn{font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding:13px 22px;border:1px solid var(--line-strong);border-radius:2px;display:inline-flex;align-items:center;gap:9px;transition:all .22s;color:var(--ink)}
-  .btn:hover{border-color:var(--bone);color:var(--bone)}
-  .btn.solid{background:var(--bone);color:#000;border-color:var(--bone)}
-  .btn.solid:hover{background:#ded6c6}
+  .scene{position:relative;min-height:100svh;display:flex;align-items:center;padding:0 clamp(20px,6vw,90px)}
+  .inner{width:100%;max-width:1200px;margin:0 auto}
 
-  .creds{display:flex;flex-wrap:wrap;margin-top:56px;border:1px solid var(--line);border-radius:3px;overflow:hidden}
-  .cred{flex:1;min-width:150px;padding:20px 22px;border-right:1px solid var(--line)}
-  .cred:last-child{border-right:0}
-  .cred .n{font-family:var(--disp);font-size:22px;font-weight:600;color:var(--bone)}
-  .cred .l{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:4px}
+  /* HERO */
+  #hero{min-height:118svh}
+  .hero-wrap{position:relative}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.28em;color:var(--bone2);text-transform:uppercase;margin-bottom:30px;overflow:hidden}
+  .eyebrow span{display:inline-block}
+  .huge{font-family:var(--serif);font-weight:500;line-height:.9;letter-spacing:-.02em;font-size:clamp(58px,15vw,220px)}
+  .huge .ln{display:block;overflow:hidden}
+  .huge .ln i{display:block;font-style:normal;will-change:transform}
+  .huge em{font-style:italic;color:var(--bone)}
+  .hero-sub{margin-top:34px;display:flex;flex-wrap:wrap;gap:16px 40px;align-items:flex-end;justify-content:space-between}
+  .hero-sub p{max-width:440px;color:#bdbab1;font-size:clamp(15px,1.5vw,18px);line-height:1.6}
+  .hero-sub p strong{color:#fff;font-weight:500}
+  .scrollcue{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--muted);display:flex;align-items:center;gap:10px}
+  .scrollcue .bar{width:46px;height:1px;background:var(--bone);transform-origin:left;animation:sweep 2.4s infinite}
+  @keyframes sweep{0%{transform:scaleX(0)}50%{transform:scaleX(1)}100%{transform:scaleX(0);transform-origin:right}}
 
-  section{padding:86px 0;border-bottom:1px solid var(--line)}
+  /* MANIFIESTO */
+  #manifiesto .inner{max-width:1050px}
+  .manifesto{font-family:var(--serif);font-weight:400;font-size:clamp(26px,4.6vw,62px);line-height:1.22;letter-spacing:-.01em}
+  .manifesto .w{opacity:.14;transition:opacity .2s;display:inline-block}
+  .manifesto .w.hot{opacity:1}
+  .manifesto .b{color:var(--bone);font-style:italic}
 
-  .about{display:grid;grid-template-columns:1.4fr 1fr;gap:54px;align-items:start}
-  @media(max-width:720px){.about{grid-template-columns:1fr;gap:34px}}
-  .about p{color:#c4c2bc;margin-bottom:16px}
-  .about p strong{color:var(--ink);font-weight:500}
-  .facets{display:flex;flex-direction:column;border-top:1px solid var(--line)}
-  .facet{padding:16px 0;border-bottom:1px solid var(--line)}
-  .facet h4{font-family:var(--disp);font-weight:500;font-size:14px;color:var(--bone);margin-bottom:3px}
-  .facet p{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.5}
+  /* TRAYECTORIA */
+  .label{font-family:var(--mono);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--bone2);margin-bottom:54px;display:flex;align-items:center;gap:16px}
+  .label::before{content:"";width:40px;height:1px;background:var(--bone2)}
+  .jobs{display:flex;flex-direction:column}
+  .job{display:grid;grid-template-columns:120px 1fr;gap:clamp(18px,5vw,70px);padding:30px 0;border-top:1px solid var(--line);align-items:baseline}
+  .job:last-child{border-bottom:1px solid var(--line)}
+  .job .yr{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.05em;padding-top:8px}
+  .job .ttl{font-family:var(--disp);font-weight:500;font-size:clamp(22px,3vw,40px);line-height:1.05;transition:color .35s}
+  .job .ttl em{font-style:normal;color:var(--bone2)}
+  .job .d{color:var(--muted);font-size:14.5px;max-width:640px;margin-top:10px;line-height:1.6}
+  .job:hover .ttl{color:var(--bone)}
+  @media(max-width:700px){.job{grid-template-columns:1fr;gap:6px}.job .yr{padding-top:0}}
 
-  .xp{position:relative;padding-left:26px}
-  .xp::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:1px;background:var(--line)}
-  .job{position:relative;padding:0 0 34px}
-  .job:last-child{padding-bottom:0}
-  .job::before{content:"";position:absolute;left:-30px;top:7px;width:7px;height:7px;background:var(--bg);border:1px solid var(--bone-dim);border-radius:50%}
-  .job .meta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--faint);margin-bottom:6px}
-  .job h3{font-family:var(--disp);font-weight:500;font-size:18px}
-  .job .org{color:var(--bone-dim);font-size:14px;margin:1px 0 9px}
-  .job p{color:var(--muted);font-size:14.5px;max-width:620px}
+  /* STACK */
+  #stack .inner{max-width:1200px}
+  .stackgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  @media(max-width:900px){.stackgrid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.stackgrid{grid-template-columns:1fr}}
+  .sc{background:var(--bg);padding:26px 22px;min-height:150px}
+  .sc h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--bone2);margin-bottom:16px}
+  .sc ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+  .sc li{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .sc li::after{content:"·";margin-left:8px;color:var(--faint)}
+  .sc li:last-child::after{content:""}
 
-  .stack{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-  @media(max-width:720px){.stack{grid-template-columns:1fr}}
-  .col{background:var(--bg);padding:24px 22px}
-  .col h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-dim);margin-bottom:14px}
-  .col ul{list-style:none;display:flex;flex-wrap:wrap;gap:7px}
-  .col li{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line);padding:4px 9px;border-radius:2px}
+  /* PROYECTOS — recorrido horizontal */
+  #work{padding:0}
+  .pin{height:100svh;display:flex;align-items:center;overflow:hidden}
+  .track{display:flex;gap:clamp(24px,4vw,60px);padding:0 clamp(20px,8vw,120px);will-change:transform}
+  .intro-card{flex:0 0 auto;width:min(80vw,520px);display:flex;flex-direction:column;justify-content:center}
+  .intro-card .label{margin-bottom:24px}
+  .intro-card h2{font-family:var(--serif);font-weight:500;font-size:clamp(40px,7vw,96px);line-height:.95;letter-spacing:-.02em}
+  .intro-card h2 em{font-style:italic;color:var(--bone)}
+  .intro-card p{color:var(--muted);margin-top:18px;max-width:380px;font-size:15px}
+  .proj{flex:0 0 auto;width:min(84vw,460px);height:min(72svh,560px);border:1px solid var(--line);border-radius:4px;background:
+      linear-gradient(180deg,rgba(216,205,182,.04),transparent 40%),var(--bg2);
+      padding:34px;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:border-color .4s}
+  .proj:hover{border-color:rgba(216,205,182,.4)}
+  .proj .num{position:absolute;right:26px;top:20px;font-family:var(--serif);font-style:italic;font-size:clamp(60px,9vw,120px);color:rgba(216,205,182,.08);line-height:1}
+  .proj .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone2)}
+  .proj h3{font-family:var(--disp);font-weight:600;font-size:clamp(28px,3.4vw,42px);margin:14px 0 6px;line-height:1}
+  .proj .sub{color:var(--bone2);font-size:14px}
+  .proj p{color:var(--muted);font-size:14.5px;line-height:1.6;margin-top:16px;flex:1}
+  .proj .tech{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0}
+  .proj .tech span{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line);padding:4px 8px;border-radius:2px}
+  .proj .go{font-family:var(--mono);font-size:12px;color:var(--bone);display:inline-flex;gap:8px;align-items:center}
+  .proj .go .ar{transition:transform .3s}
+  .proj:hover .go .ar{transform:translateX(5px)}
+  .end-card{flex:0 0 auto;width:min(60vw,340px);display:flex;align-items:center}
+  .end-card p{font-family:var(--serif);font-style:italic;font-size:clamp(24px,3vw,38px);color:var(--muted);line-height:1.2}
 
-  .projects{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  @media(max-width:720px){.projects{grid-template-columns:1fr}}
-  .card{border:1px solid var(--line);border-radius:3px;padding:26px;background:var(--bg-soft);transition:border-color .22s,transform .22s;display:flex;flex-direction:column}
-  .card:hover{border-color:var(--line-strong);transform:translateY(-2px)}
-  .card .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-  .card h3{font-family:var(--disp);font-weight:600;font-size:20px;margin:10px 0 4px}
-  .card .sub{color:var(--bone-dim);font-size:13px;margin-bottom:12px}
-  .card p{color:var(--muted);font-size:14px;flex:1}
-  .card .tech{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 18px}
-  .card .tech span{font-family:var(--mono);font-size:10.5px;color:var(--faint);border:1px solid var(--line);padding:3px 7px;border-radius:2px}
-  .card .repo{font-family:var(--mono);font-size:12px;color:var(--bone);display:inline-flex;align-items:center;gap:7px}
+  /* CONTACTO */
+  #contacto{min-height:100svh;text-align:center;flex-direction:column;justify-content:center;gap:0}
+  #contacto .big{font-family:var(--serif);font-weight:500;font-size:clamp(42px,11vw,150px);line-height:.95;letter-spacing:-.02em}
+  #contacto .big em{font-style:italic;color:var(--bone)}
+  #contacto .sub{color:var(--muted);margin:26px 0 40px;font-size:16px;max-width:460px;margin-left:auto;margin-right:auto}
+  .clinks{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .pill{font-family:var(--mono);font-size:12px;letter-spacing:.05em;padding:14px 26px;border:1px solid var(--line);border-radius:40px;transition:all .3s}
+  .pill:hover{border-color:var(--bone);color:var(--bone);transform:translateY(-2px)}
+  .pill.solid{background:var(--bone);color:#000;border-color:var(--bone)}
+  .pill.solid:hover{background:#e7dcc5;color:#000}
+  .foot{margin-top:70px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.08em}
 
-  .contact{text-align:center;padding:96px 0}
-  .contact .big{font-family:var(--disp);font-weight:600;font-size:clamp(28px,5vw,46px);display:block;margin-bottom:14px}
-  .contact p{color:var(--muted);max-width:460px;margin:0 auto 34px}
-  .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-
-  footer{padding:30px 0;border-top:1px solid var(--line)}
-  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-  .foot span{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em}
-
-  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
-  .reveal.in{opacity:1;transform:none}
+  .reveal{opacity:0;transform:translateY(30px)}
 </style>
 </head>
 <body>
+<div class="vignette"></div>
+<div class="grain"></div>
+<div class="prog" id="prog"></div>
 
-<header class="nav">
-  <div class="wrap nav-in">
-    <a href="#inicio" class="brand">JUAN&nbsp;PABLO<span>.</span>TORO</a>
-    <nav><ul>
-      <li><a href="#perfil">Perfil</a></li>
-      <li><a href="#experiencia">Experiencia</a></li>
-      <li><a href="#stack">Stack</a></li>
-      <li><a href="#proyectos">Proyectos</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul></nav>
-  </div>
-</header>
-
-<a id="inicio"></a>
-<div class="hero">
-  <div class="wrap">
-    <div class="status"><span class="dot"></span> DISPONIBLE PARA PROYECTOS · MEDELLÍN, COLOMBIA</div>
-    <h1>Juan Pablo <span class="b">Toro</span></h1>
-    <div class="role">Desarrollador Full Stack · Infraestructura · Seguridad</div>
-    <p class="lead">
-      Construyo software <strong>y</strong> entiendo dónde corre. Escribo APIs REST, integraciones y
-      automatizaciones, y también opero la capa que los sostiene: servidores Linux, redes y seguridad.
-      Esa mezcla es el punto — no solo hago el sistema, sé cómo está hecho por dentro.
-    </p>
-    <div class="cta">
-      <a class="btn solid" href="./assets/MyCVDev.pdf" download>↓ Descargar CV</a>
-      <a class="btn" href="#proyectos">Ver proyectos</a>
-      <a class="btn" href="https://github.com/SoulNome" target="_blank" rel="noopener">GitHub ↗</a>
-    </div>
-    <div class="creds reveal">
-      <div class="cred"><div class="n">5+</div><div class="l">años programando</div></div>
-      <div class="cred"><div class="n">Top&nbsp;15%</div><div class="l">TryHackMe</div></div>
-      <div class="cred"><div class="n">6</div><div class="l">barberías con BarberIA</div></div>
-      <div class="cred"><div class="n">360</div><div class="l">Ciberseguridad · MinTIC</div></div>
-    </div>
-  </div>
+<div class="hud">
+  <a href="#hero" class="sig">JPT<b>.</b></a>
+  <nav>
+    <a href="#manifiesto">Perfil</a>
+    <a href="#trayectoria">Trayectoria</a>
+    <a href="#stack">Stack</a>
+    <a href="#work">Proyectos</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
 </div>
+<div class="counter"><b id="cnum">01</b> / 06</div>
 
-<section id="perfil">
-  <div class="wrap">
-    <div class="kicker">01 — Perfil</div>
-    <div class="about">
-      <div>
-        <p>Empecé programando por gusto mucho antes de trabajar en esto. Mi primer empleo fue como <strong>desarrollador full stack</strong> en 2021, y de ahí quise entender la capa que sostiene todo lo demás: redes, servidores y seguridad.</p>
-        <p>He liderado la infraestructura de una empresa — equipos Cisco, VLANs, seguridad de puertos, racks, servidores y respaldos. En paralelo operé como <strong>NOC</strong> de servidores Linux, con monitoreo y respuesta a incidentes, y como <strong>pentester</strong>, haciendo pruebas autorizadas sobre aplicaciones web y redes.</p>
-        <p>Y sigo escribiendo software: APIs REST, webhooks, automatización. Soy autodidacta — si hoy no sé algo, me siento a estudiarlo, y al día siguiente ya lo estoy aplicando.</p>
-      </div>
-      <div class="facets">
-        <div class="facet"><h4>Desarrollo</h4><p>APIs REST · Node, Spring, Laravel, Flask · React y Angular</p></div>
-        <div class="facet"><h4>Infraestructura</h4><p>Redes Cisco · VLANs · servidores Linux · respaldos</p></div>
-        <div class="facet"><h4>Seguridad</h4><p>Pentesting web autorizado · hardening · Ciberseguridad 360</p></div>
-        <div class="facet"><h4>Formación</h4><p>Ing. de Sistemas · Universidad del Valle · TryHackMe</p></div>
-      </div>
+<!-- 01 HERO -->
+<section class="scene" id="hero" data-scene="01">
+  <div class="inner hero-wrap">
+    <div class="eyebrow"><span>Desarrollador · Infraestructura · Seguridad — Medellín, CO</span></div>
+    <h1 class="huge">
+      <span class="ln"><i data-h>Juan</i></span>
+      <span class="ln"><i data-h>Pablo</i></span>
+      <span class="ln"><i data-h><em>Toro</em></i></span>
+    </h1>
+    <div class="hero-sub">
+      <p>Construyo software <strong>y</strong> entiendo dónde corre. APIs, automatización y los sistemas que las sostienen.</p>
+      <div class="scrollcue"><span class="bar"></span> DESLIZA PARA ENTRAR</div>
     </div>
   </div>
 </section>
 
-<section id="experiencia">
-  <div class="wrap">
-    <div class="kicker">02 — Trayectoria</div>
-    <div class="xp">
-      <div class="job reveal">
-        <div class="meta">MAR 2026 — PRESENTE · INDEPENDIENTE</div>
-        <h3>Desarrollador y Asesor Tecnológico</h3>
-        <div class="org">Techno Labs — junto a José Aguirre</div>
-        <p>Desarrollo de proyectos a la medida para clientes y del sitio del Tuluá Labs Summit 2026. Asesoría en ERP, CRM e integraciones.</p>
-      </div>
-      <div class="job reveal">
-        <div class="meta">2023 — PRESENTE · INDEPENDIENTE</div>
-        <h3>Desarrollador Full Stack</h3>
-        <div class="org">Proyectos propios y clientes</div>
-        <p>APIs REST con Node.js, Spring Boot, Laravel y Flask; frontends en React y Angular. Ciclos completos con Scrum, del análisis al despliegue, apoyado en IA.</p>
-      </div>
-      <div class="job reveal">
-        <div class="meta">FEB 2025 — MAY 2026 · TULUÁ</div>
-        <h3>Analista de Sistemas</h3>
-        <div class="org">Medisfarma</div>
-        <p>A cargo de la red y los servidores de la empresa: VLANs y seguridad de puertos en switches Cisco, racks y cableado, respaldos y documentación. Gestión de incidentes y del personal de sistemas.</p>
-      </div>
-      <div class="job reveal">
-        <div class="meta">2023 — 2025 · REMOTO</div>
-        <h3>NOC &amp; Pentester</h3>
-        <div class="org">Servicios independientes</div>
-        <p>Monitoreo de servidores Linux (VPS/VDC) y respuesta a incidentes. Pruebas de seguridad autorizadas sobre sitios web y redes, con hardening y automatización en Bash y Python.</p>
-      </div>
-      <div class="job reveal">
-        <div class="meta">ENE 2021 — JUL 2021</div>
-        <h3>Desarrollador Web → Full Stack</h3>
-        <div class="org">Accedo Santander</div>
-        <p>Mi primer trabajo como desarrollador: aplicaciones con patrón MVC, frontend, backend, APIs REST y bases de datos SQL. Scrum en la práctica.</p>
-      </div>
+<!-- 02 MANIFIESTO -->
+<section class="scene" id="manifiesto" data-scene="02">
+  <div class="inner">
+    <p class="manifesto" id="man">Empecé programando por gusto. Terminé entendiendo el sistema completo — del <span class="b">código</span> a la <span class="b">red</span> donde vive. Soy autodidacta: si hoy no sé algo, mañana ya lo estoy aplicando.</p>
+  </div>
+</section>
+
+<!-- 03 TRAYECTORIA -->
+<section class="scene" id="trayectoria" data-scene="03">
+  <div class="inner">
+    <div class="label">Trayectoria</div>
+    <div class="jobs">
+      <div class="job reveal"><div class="yr">2026 — HOY</div><div><div class="ttl">Desarrollador &amp; Asesor <em>· Techno Labs</em></div><div class="d">Proyectos a la medida para clientes y el sitio del Tuluá Labs Summit 2026. Asesoría en ERP, CRM e integraciones. Trabajo independiente.</div></div></div>
+      <div class="job reveal"><div class="yr">2023 — HOY</div><div><div class="ttl">Desarrollador Full Stack <em>· Freelance</em></div><div class="d">APIs REST con Node.js, Spring Boot, Laravel y Flask; frontends en React y Angular. Del análisis al despliegue, con Scrum e IA.</div></div></div>
+      <div class="job reveal"><div class="yr">2025 — 2026</div><div><div class="ttl">Analista de Sistemas <em>· Medisfarma</em></div><div class="d">A cargo de la red y los servidores: VLANs y seguridad de puertos en switches Cisco, racks, respaldos y documentación. Incidentes y coordinación del equipo.</div></div></div>
+      <div class="job reveal"><div class="yr">2023 — 2025</div><div><div class="ttl">NOC &amp; Pentester <em>· Independiente</em></div><div class="d">Monitoreo de servidores Linux (VPS/VDC) y respuesta a incidentes. Pruebas de seguridad autorizadas sobre sitios web y redes, con hardening en Bash y Python.</div></div></div>
+      <div class="job reveal"><div class="yr">2021</div><div><div class="ttl">Desarrollador Web → Full Stack <em>· Accedo</em></div><div class="d">Mi primer trabajo como desarrollador: aplicaciones MVC, frontend, backend, APIs REST y bases de datos SQL. Scrum en la práctica.</div></div></div>
     </div>
   </div>
 </section>
 
-<section id="stack">
-  <div class="wrap">
-    <div class="kicker">03 — Con lo que trabajo</div>
-    <div class="stack">
-      <div class="col"><h4>Lenguajes</h4><ul><li>JavaScript</li><li>TypeScript</li><li>Python</li><li>Java</li><li>PHP</li><li>SQL</li><li>Bash</li></ul></div>
-      <div class="col"><h4>Backend</h4><ul><li>Node.js</li><li>Express</li><li>Spring Boot</li><li>Laravel</li><li>Flask</li><li>REST APIs</li><li>Webhooks</li><li>JWT / OAuth</li></ul></div>
-      <div class="col"><h4>Frontend</h4><ul><li>React</li><li>Angular</li><li>Tailwind</li><li>HTML · CSS</li><li>Flutter</li></ul></div>
-      <div class="col"><h4>Datos y deploy</h4><ul><li>PostgreSQL</li><li>MySQL</li><li>Docker</li><li>Git / GitHub</li><li>Railway</li><li>VPS · Linux</li></ul></div>
-      <div class="col"><h4>Infra y seguridad</h4><ul><li>Cisco · VLANs</li><li>NOC · monitoreo</li><li>Hardening</li><li>Kali · Nmap</li><li>Burp · Wireshark</li></ul></div>
-      <div class="col"><h4>IA y método</h4><ul><li>Claude Code</li><li>Agentes · skills</li><li>MCP</li><li>Copilot · Cursor</li><li>Scrum · SOLID</li></ul></div>
+<!-- 04 STACK -->
+<section class="scene" id="stack" data-scene="04">
+  <div class="inner">
+    <div class="label">Con lo que trabajo</div>
+    <div class="stackgrid">
+      <div class="sc reveal"><h4>Lenguajes</h4><ul><li>JavaScript</li><li>TypeScript</li><li>Python</li><li>Java</li><li>PHP</li><li>SQL</li></ul></div>
+      <div class="sc reveal"><h4>Backend</h4><ul><li>Node</li><li>Express</li><li>Spring Boot</li><li>Laravel</li><li>Flask</li><li>REST</li><li>JWT</li></ul></div>
+      <div class="sc reveal"><h4>Frontend</h4><ul><li>React</li><li>Angular</li><li>Tailwind</li><li>Vite</li><li>Flutter</li></ul></div>
+      <div class="sc reveal"><h4>Datos · Deploy</h4><ul><li>PostgreSQL</li><li>MySQL</li><li>Docker</li><li>Git</li><li>Railway</li><li>Linux</li></ul></div>
+      <div class="sc reveal"><h4>Infra · Seguridad</h4><ul><li>Cisco</li><li>VLANs</li><li>NOC</li><li>Hardening</li><li>Kali</li><li>Nmap</li></ul></div>
+      <div class="sc reveal"><h4>IA · Método</h4><ul><li>Claude Code</li><li>Agentes</li><li>MCP</li><li>Copilot</li><li>Scrum</li><li>SOLID</li></ul></div>
+      <div class="sc reveal"><h4>Formación</h4><ul><li>Ing. Sistemas · Univalle</li><li>Ciberseguridad 360</li><li>TryHackMe Top 15%</li></ul></div>
+      <div class="sc reveal"><h4>Idiomas</h4><ul><li>Español nativo</li><li>Inglés intermedio</li></ul></div>
     </div>
   </div>
 </section>
 
-<section id="proyectos">
-  <div class="wrap">
-    <div class="kicker">04 — Lo que he construido</div>
-    <div class="projects">
-
-      <div class="card reveal">
-        <span class="tag">SaaS · Producción</span>
-        <h3>BarberIA</h3>
-        <div class="sub">Automatización para barberías · 6 activas</div>
-        <p>Bot de WhatsApp que atiende a los clientes, agenda citas, revisa disponibilidad y envía recordatorios. Multi-tenant: cada barbería con sus datos y credenciales aislados, y un panel con métricas para el dueño.</p>
-        <div class="tech"><span>Python</span><span>Flask</span><span>PostgreSQL</span><span>Evolution API</span><span>Railway</span></div>
-        <a class="repo" href="https://github.com/SoulNome/barberia-bot" target="_blank" rel="noopener">repositorio ↗</a>
+<!-- 05 PROYECTOS (horizontal) -->
+<section id="work" data-scene="05">
+  <div class="pin" id="pin">
+    <div class="track" id="track">
+      <div class="intro-card">
+        <div class="label">Proyectos</div>
+        <h2>Lo que he <em>construido</em></h2>
+        <p>Software y automatizaciones que creo y mantengo yo mismo — incluida la infraestructura donde corren. Desliza →</p>
       </div>
 
-      <div class="card reveal">
-        <span class="tag">Full Stack · Empresa</span>
-        <h3>Inventario TI</h3>
-        <div class="sub">Gestión de equipos con actas firmadas</div>
-        <p>Sistema para gestionar el inventario de equipos: asignaciones, actas en PDF firmadas por el empleado, historial de movimientos y auditoría. Lo desarrollé para resolver la trazabilidad de entregas en Medisfarma.</p>
-        <div class="tech"><span>Flask</span><span>React</span><span>Vite</span><span>Tailwind</span><span>PostgreSQL</span></div>
-        <a class="repo" href="https://github.com/SoulNome/inventario-ti" target="_blank" rel="noopener">repositorio ↗</a>
-      </div>
+      <a class="proj" href="https://github.com/SoulNome/barberia-bot" target="_blank" rel="noopener">
+        <span class="num">01</span><span class="tag">SaaS · Producción</span>
+        <h3>BarberIA</h3><div class="sub">Automatización para barberías · 6 activas</div>
+        <p>Bot de WhatsApp que agenda citas, revisa disponibilidad y envía recordatorios. Multi-tenant: cada barbería con sus datos aislados y panel de métricas.</p>
+        <div class="tech"><span>Python</span><span>Flask</span><span>PostgreSQL</span><span>Evolution API</span></div>
+        <span class="go">ver repositorio <span class="ar">↗</span></span>
+      </a>
 
-      <div class="card reveal">
-        <span class="tag">API REST · Java</span>
-        <h3>Lentti API</h3>
-        <div class="sub">API de pedidos y entregas</div>
-        <p>API REST por capas (controller, service, repository) para productos, usuarios, órdenes y entregas, con manejo de errores propio y documentación interactiva en Swagger.</p>
-        <div class="tech"><span>Java</span><span>Spring Boot</span><span>JPA</span><span>MySQL</span><span>Swagger</span></div>
-        <a class="repo" href="https://github.com/SoulNome/lentti-api-rest" target="_blank" rel="noopener">repositorio ↗</a>
-      </div>
+      <a class="proj" href="https://github.com/SoulNome/inventario-ti" target="_blank" rel="noopener">
+        <span class="num">02</span><span class="tag">Full Stack · Empresa</span>
+        <h3>Inventario TI</h3><div class="sub">Equipos con actas firmadas</div>
+        <p>Gestión de equipos con asignaciones, actas en PDF firmadas por el empleado, historial de movimientos y auditoría. Lo desarrollé para resolver la trazabilidad en Medisfarma.</p>
+        <div class="tech"><span>Flask</span><span>React</span><span>Vite</span><span>PostgreSQL</span></div>
+        <span class="go">ver repositorio <span class="ar">↗</span></span>
+      </a>
 
-      <div class="card reveal">
-        <span class="tag">Full Stack · Hardware</span>
-        <h3>Barcode Price Manager</h3>
-        <div class="sub">Precios por código de barras</div>
-        <p>Sistema para una tienda: escanea un código, consulta el producto y gestiona precios con historial y auditoría. Funciona offline con caché y corre sobre una Raspberry Pi.</p>
+      <a class="proj" href="https://github.com/SoulNome/lentti-api-rest" target="_blank" rel="noopener">
+        <span class="num">03</span><span class="tag">API REST · Java</span>
+        <h3>Lentti API</h3><div class="sub">Pedidos y entregas</div>
+        <p>API REST por capas (controller, service, repository) para productos, usuarios, órdenes y entregas, con manejo de errores propio y documentación en Swagger.</p>
+        <div class="tech"><span>Java</span><span>Spring Boot</span><span>JPA</span><span>Swagger</span></div>
+        <span class="go">ver repositorio <span class="ar">↗</span></span>
+      </a>
+
+      <a class="proj" href="https://github.com/SoulNome/barcode-price-manager" target="_blank" rel="noopener">
+        <span class="num">04</span><span class="tag">Full Stack · Hardware</span>
+        <h3>Barcode Manager</h3><div class="sub">Precios por código de barras</div>
+        <p>Escanea un código, consulta el producto y gestiona precios con historial y auditoría. Funciona offline con caché y corre sobre una Raspberry Pi.</p>
         <div class="tech"><span>Python</span><span>Flask</span><span>SQLite</span><span>Raspberry Pi</span></div>
-        <a class="repo" href="https://github.com/SoulNome/barcode-price-manager" target="_blank" rel="noopener">repositorio ↗</a>
-      </div>
+        <span class="go">ver repositorio <span class="ar">↗</span></span>
+      </a>
 
-      <div class="card reveal">
-        <span class="tag">Laravel · Inventario</span>
-        <h3>Spendify</h3>
-        <div class="sub">Inventario y ventas con roles</div>
-        <p>Aplicación de gestión de inventario y ventas: categorías, productos, ventas y usuarios con control de acceso por roles y permisos. Validación separada en Form Requests.</p>
+      <a class="proj" href="https://github.com/SoulNome/spendify" target="_blank" rel="noopener">
+        <span class="num">05</span><span class="tag">Laravel · Inventario</span>
+        <h3>Spendify</h3><div class="sub">Inventario y ventas con roles</div>
+        <p>Gestión de categorías, productos, ventas y usuarios con control de acceso por roles y permisos. Validación separada en Form Requests.</p>
         <div class="tech"><span>PHP</span><span>Laravel</span><span>MySQL</span><span>Blade</span></div>
-        <a class="repo" href="https://github.com/SoulNome/spendify" target="_blank" rel="noopener">repositorio ↗</a>
-      </div>
+        <span class="go">ver repositorio <span class="ar">↗</span></span>
+      </a>
 
-      <div class="card reveal">
-        <span class="tag">Web · Evento</span>
-        <h3>Labs Summit 2026</h3>
-        <div class="sub">Sitio del Tuluá Labs Summit</div>
-        <p>Sitio oficial del evento: venta de boletas por niveles, agenda por días, conferencistas, patrocinadores y mapa interactivo del recorrido en WebGL.</p>
+      <a class="proj" href="https://github.com/SoulNome/labs-summit-2026" target="_blank" rel="noopener">
+        <span class="num">06</span><span class="tag">Web · Evento</span>
+        <h3>Labs Summit</h3><div class="sub">Tuluá Labs Summit 2026</div>
+        <p>Sitio del evento: venta de boletas por niveles, agenda, conferencistas, patrocinadores y mapa interactivo del recorrido en WebGL.</p>
         <div class="tech"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>WebGL</span></div>
-        <a class="repo" href="https://github.com/SoulNome/labs-summit-2026" target="_blank" rel="noopener">repositorio ↗</a>
-      </div>
+        <span class="go">ver repositorio <span class="ar">↗</span></span>
+      </a>
 
+      <div class="end-card"><p>…y lo que sigue construyendo.</p></div>
     </div>
   </div>
 </section>
 
-<section id="contacto" class="contact">
-  <div class="wrap">
-    <div class="kicker" style="justify-content:center">05 — Contacto</div>
-    <span class="big">Hablemos de tu proyecto</span>
-    <p>¿Buscas quien construya el software y entienda la infraestructura donde corre? Escríbeme.</p>
-    <div class="links">
-      <a class="btn solid" href="mailto:juan.p.toro@correounivalle.edu.co">Correo</a>
-      <a class="btn" href="https://wa.me/573143173801?text=Hola%20Juan%20Pablo%2C%20vi%20tu%20portafolio" target="_blank" rel="noopener">WhatsApp</a>
-      <a class="btn" href="https://github.com/SoulNome" target="_blank" rel="noopener">GitHub</a>
+<!-- 06 CONTACTO -->
+<section class="scene" id="contacto" data-scene="06">
+  <div class="inner">
+    <div class="label" style="justify-content:center">Hablemos</div>
+    <div class="big">Construyamos<br><em>algo</em></div>
+    <p class="sub">¿Buscas quien construya el software y entienda la infraestructura donde corre? Escríbeme.</p>
+    <div class="clinks">
+      <a class="pill solid" href="mailto:juan.p.toro@correounivalle.edu.co">Correo</a>
+      <a class="pill" href="https://wa.me/573143173801?text=Hola%20Juan%20Pablo%2C%20vi%20tu%20portafolio" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="pill" href="https://github.com/SoulNome" target="_blank" rel="noopener">GitHub</a>
+      <a class="pill" href="./assets/MyCVDev.pdf" download>Descargar CV ↓</a>
     </div>
+    <div class="foot">© 2026 Juan Pablo Toro Correa · Medellín, Colombia</div>
   </div>
 </section>
 
-<footer>
-  <div class="wrap foot">
-    <span>© 2026 Juan Pablo Toro Correa</span>
-    <span>Medellín · Colombia</span>
-  </div>
-</footer>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script>
-  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGSAP = window.gsap && window.ScrollTrigger;
+
+  // ---- Smooth scroll (Lenis) + GSAP sync ----
+  var lenis=null;
+  if(window.Lenis && !reduce){
+    lenis=new Lenis({duration:1.1, easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))}, smoothWheel:true});
+    function raf(t){lenis.raf(t);requestAnimationFrame(raf)} requestAnimationFrame(raf);
+  }
+  if(hasGSAP){
+    gsap.registerPlugin(ScrollTrigger);
+    if(lenis){lenis.on('scroll',ScrollTrigger.update); gsap.ticker.add(function(t){lenis.raf(t*1000)}); gsap.ticker.lagSmoothing(0);}
+  }
+
+  // ---- progreso + contador ----
+  var prog=document.getElementById('prog'), cnum=document.getElementById('cnum');
+  function onScroll(){
+    var h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+    prog.style.width=(max>0?(h.scrollTop||document.body.scrollTop)/max*100:0)+'%';
+  }
+  document.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  document.querySelectorAll('[data-scene]').forEach(function(s){
+    if(!hasGSAP) return;
+    ScrollTrigger.create({trigger:s,start:'top 55%',end:'bottom 55%',
+      onToggle:function(self){if(self.isActive)cnum.textContent=s.getAttribute('data-scene');}});
+  });
+
+  if(!hasGSAP){ document.querySelectorAll('.reveal').forEach(function(e){e.style.opacity=1;e.style.transform='none'}); return; }
+
+  // ---- HERO entrada ----
+  gsap.set('.huge .ln i',{yPercent:110});
+  gsap.set('.eyebrow span',{yPercent:110});
+  gsap.set('.hero-sub',{opacity:0,y:20});
+  var tl=gsap.timeline({defaults:{ease:'expo.out'}});
+  tl.to('.eyebrow span',{yPercent:0,duration:1,ease:'power3.out'},0)
+    .to('.huge .ln i',{yPercent:0,duration:1.25,stagger:.1},.2)
+    .to('.hero-sub',{opacity:1,y:0,duration:1},'-=.5');
+
+  // parallax del nombre al hacer scroll
+  gsap.to('.huge',{yPercent:-18,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.eyebrow',{opacity:0,y:-30,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'40% top',scrub:true}});
+
+  // ---- MANIFIESTO palabra por palabra ----
+  var man=document.getElementById('man');
+  var html=man.innerHTML;
+  // envolver palabras sueltas conservando los spans .b
+  var tmp=document.createElement('div'); tmp.innerHTML=html; var out='';
+  tmp.childNodes.forEach(function(n){
+    if(n.nodeType===3){ n.textContent.split(/(\s+)/).forEach(function(w){ out+= /\S/.test(w)?'<span class="w">'+w+'</span>':w; }); }
+    else { out+='<span class="w b">'+n.textContent+'</span>'; }
+  });
+  man.innerHTML=out;
+  gsap.to('.manifesto .w',{opacity:1,stagger:.04,ease:'none',
+    scrollTrigger:{trigger:'#manifiesto',start:'top 70%',end:'bottom 75%',scrub:true}});
+
+  // ---- TRAYECTORIA reveal ----
+  gsap.utils.toArray('#trayectoria .job').forEach(function(j){
+    gsap.to(j,{opacity:1,y:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:j,start:'top 85%'}});
+  });
+  // ---- STACK reveal ----
+  gsap.to('#stack .sc',{opacity:1,y:0,duration:.7,stagger:.06,ease:'power3.out',scrollTrigger:{trigger:'#stack',start:'top 70%'}});
+
+  // ---- PROYECTOS: scroll horizontal pineado ----
+  var track=document.getElementById('track');
+  function setHorizontal(){
+    var dist=track.scrollWidth - window.innerWidth + (window.innerWidth*0.08);
+    return dist>0?dist:0;
+  }
+  var horiz=gsap.to(track,{x:function(){return -setHorizontal();},ease:'none',
+    scrollTrigger:{trigger:'#work',start:'top top',end:function(){return '+='+setHorizontal();},
+      pin:true,scrub:1,invalidateOnRefresh:true,anticipatePin:1}});
+
+  window.addEventListener('load',function(){ScrollTrigger.refresh();});
+})();
 </script>
 </body>
 </html>
